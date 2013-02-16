@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{%load  i18n  %}
+{%block body%}
+<div id="delete_blog_{{blog.pk}}" data-role="page" class="page" data-dom-cache="true">
+  <div data-role="header" data-theme="c">
+    <a href="#" onclick="goBack();" data-icon="arrow-l" data-direction="reverse">Back</a>
+    <a href="/" data-icon="home" data-direction="reverse">Home</a>
+    <h1> {%trans 'Delete'%}:{{blog.title}} </h1>
+  </div><!--/header-->
+<div id="color-bar"></div>
+
+<div data-role="content">
+
+<h2>{{blog.title}}</h2>
+<div>{{blog.overview}}</div>
+
+<form  method="post" >{%csrf_token%}
+	{% for field in form %}
+<div data-role="fieldcontain">
+	{{ field.label_tag }}
+	{{ field }}
+	{{ field.errors }}
+</div>
+{% endfor %}
+ 
+<fieldset class="ui-grid-a">
+	<div class="ui-block-b">
+		<a href="/blog/blog/{{blog.slug}}/">{%trans 'Cancel'%}</a>
+		<button type="submit" data-theme="a" data-mini="true">{%trans 'Delete'%}</button>
+	</div>
+</fieldset>	
+</form>
+
+</div>
+</div><!-- /page home-->
+
+
+{%endblock body%}

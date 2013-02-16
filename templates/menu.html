@@ -1,0 +1,12 @@
+{%load  i18n  %}
+<div data-role="footer" data-theme="b" data-position="fixed">
+	<div data-role="navbar">
+	<ul>
+		{%if user.is_active%}
+		<li><a href="/blog/blogs/?user={{user.pk}}">{%trans 'My Blogs'%}</a></li>
+		<li><a href="/blog/add_blog/">{%trans 'Add Blog'%}</a></li>
+		{%endif%}
+		<li><a href="/blog/blogs/">{%trans 'Blogs'%}</a></li>
+	</ul>
+	</div><!-- /navbar -->
+</div>

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{%load  i18n comments %}
+{%block body%}
+
+
+<div id="entry-{{entry.pk}}" data-role="page" class="page" data-dom-cache="true">
+
+  <div data-role="header" data-theme="c">
+    <a href="#" onclick="goBack();" data-icon="arrow-l" data-direction="reverse">Back</a>
+    <a href="/" data-icon="home" data-direction="reverse">Home</a>
+    <h1> {{entry.title}} </h1>
+  </div><!--/header-->
+<div id="color-bar"></div>
+
+<div data-role="content">
+	
+	
+<h2>{{entry.title}}</h2>
+<h3>{%trans 'Blog'%}:<a href="/blog/blog/{{entry.blog.slug}}/">{{entry.blog.title}}</a></h3>
+<div>{{entry.body}}</div>
+
+{%comment%}
+tagit is using a non supported query
+<div>{%trans 'tags'%}
+	{% for t in entry.tags.all %}
+	<a href='/?tag={{t.id}}' >t.name</a>
+	{%endfor%}
+</div>
+{%endcomment%}
+<div>{%trans 'rating'%}:{{entry.rating.get_percent}}</div>
+<div>
+<h4>{%trans "Comments"%}</h4>
+{% render_comment_list for entry %}
+</div>
+{%if user.is_active%}
+<div>
+<h4>{%trans "Add Comment"%}</h4>
+{% get_comment_form for entry as form %}
+  <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+    {{form.comment}}
+    
+
+<input  type="hidden"  id="id_name" type="text" name="name" maxlength="50" value="{{user.first_name}} {{user.last_name}}" />
+<input  type="hidden"  type="text" name="email" id="id_email" value="{{user.email}}" />
+<input  type="hidden"  type="text" name="url" id="id_url" />
+<input type="text" name="honeypot" id="id_honeypot" />
+<input type="hidden" name="content_type" value="blog.entry" id="id_content_type" />
+<input type="hidden" name="object_pk" value="169" id="id_object_pk" />
+<input type="hidden" name="timestamp" value="1361004119" id="id_timestamp" />
+<input type="hidden" name="security_hash" value="28db2655255bedb59f636f9df77021e06dce1c3c" id="id_security_hash" />
+<input type="hidden" name="next" value="/blog/entry/{{entry.slug}}/" />    
+ <input type="submit" name="submit" value="Post">
+</form>
+</div>
+{%endif%}
+<div>
+{%if entry.translated_from %}
+<a href="/blog/entry/{{entry.translated_from.slug}}/">{%trans 'Translated form:'%}:  {{entry.translated_from.lang}}:{{entry.translated_from.title}}</a>
+{%else%}
+<h4>{%trans "Translations"%}</h4>
+{%for t in entry.get_translations%}
+<a href="/blog/entry/{{t.slug}}/">{{t.lang}}:{{t.title}}</a>	
+{%endfor%}
+</div>
+{%if user.is_active%}
+<div data-role="collapsible" data-theme="c" data-content-theme="d">
+<h4>{%trans "Translate"%}</h4>
+{%trans 'You may translate the post to the follwoing languages'%}:
+{%for l in entry.get_non_trans_langs%}
+<a href="/blog/trnaslate_entry/{{entry.pk}}/{{l.0}}/">{{l.1}}</a>	
+{%endfor%}
+</div>
+{%endif%}
+{%endif%}
+</div>
+</div><!-- /page home-->
+
+{%endblock body%}

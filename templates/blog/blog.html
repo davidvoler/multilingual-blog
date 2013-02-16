@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{%load  i18n comments %}
+{%block body%}
+
+
+<div id="blog_{{blog.pk}}" data-role="page" class="page" data-dom-cache="true">
+
+  <div data-role="header" data-theme="c">
+    <a href="#" onclick="goBack();" data-icon="arrow-l" data-direction="reverse">Back</a>
+    <a href="/" data-icon="home" data-direction="reverse">Home</a>
+    <h1> {{blog.title}} </h1>
+  </div><!--/header-->
+<div id="color-bar"></div>
+
+<div data-role="content">
+<h2>{%trans 'Blog'%}:{{blog.title}}</h2>
+<a href="/blog/blogs/?user={{blog.owner.pk}}">{%trans 'Author'%}:{{blog.owner}}</a>
+<div>{{blog.overview}}</div>
+{%if edit_permision%}
+<a data-ajax="false" href="/blog/add_entry/{{blog.pk}}/">{%trans "Add Entry"%}</a>
+{%endif %}
+<h3>{%trans "Post List"%}</h3>
+<div>
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Search" data-filter-theme="d"data-theme="d" data-divider-theme="d">	<li data-role="list-divider"><span class="ui-li-count">{%trans "Todays Posts"%}</span></li>
+	{%for e in entries%}
+	{%ifequal e.author user%}
+	<li><a href='/blog/entry/{{e.slug}}/' >
+			<h3>{{e.title}}</h3></a>
+			<p>{{e.body|truncatewords:30}}</p>
+			<p><strong>{{e.author}}</strong></p>
+			<p class="ui-li-aside"><strong>{{e.created_date}}</strong></p>
+			{% get_comment_count for e as comment_count %}
+
+			<p>{{ comment_count }} {% trans 'comments'%}.</p>
+			<p>
+			{% if e.published%}
+				{%trans 'Published'%}
+			{%else%}
+				{%trans 'Not Published'%}
+			{% endif %}
+			</p>
+			<p>
+			<a href='/blog/edit_entry/{{e.pk}}/'>{%trans 'Edit'%}</a>
+			<a href='/blog/delete_entry/{{e.pk}}/'>{%trans 'Delete'%}</a></p>
+	</li>
+	{%else%}
+	<li><a href='/blog/entry/{{e.slug}}/' >
+			<h3>{{e.title}}</h3>
+			<p><strong>{{e.author}}</strong></p>
+			<p>{{e.body|truncatewords:30}}</p>
+			{% get_comment_count for e as comment_count %}
+			<p>{{ comment_count }} {% trans 'comments'%}.</p>
+			<p class="ui-li-aside"><strong>{{e.created_date}}</strong></p>
+		
+	</a></li>
+	{%endifequal%}
+	{%endfor%}
+</ul>
+</div>
+</div>
+</div><!-- /page home-->
+
+{%endblock body%}

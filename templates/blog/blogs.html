@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{%load  i18n comments %}
+{%block body%}
+
+
+<div id="blogs" data-role="page" class="page" data-dom-cache="true">
+
+  <div data-role="header" data-theme="c">
+    <a href="#" onclick="goBack();" data-icon="arrow-l" data-direction="reverse">Back</a>
+    <a href="/" data-icon="home" data-direction="reverse">Home</a>
+    <h1> {%trans 'Blogs'%} </h1>
+  </div><!--/header-->
+<div id="color-bar"></div>
+
+<div data-role="content">
+
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Search" data-filter-theme="d"data-theme="d" data-divider-theme="d">	<li data-role="list-divider"><span class="ui-li-count">{%trans "Todays Posts"%}</span></li>
+	{%for b in blogs%}
+	<li><a href='/blog/blog/{{b.slug}}/' >
+			<h3>{{b.title}}</h3>
+			<p><strong>{{b.owner}}</strong></p>
+			<p>{{b.overview|truncatewords:30}}</p>
+			<p class="ui-li-aside"><strong>{{b.created_date}}</strong></p>
+	</a></li>
+	{%endfor%}
+</ul>
+</div>
+</div><!-- /page home-->
+
+{%endblock body%}

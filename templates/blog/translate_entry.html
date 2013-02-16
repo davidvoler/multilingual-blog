@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{%load  i18n %}
+{%block body%}
+<div id="trnas_entry-{{entry.pk}}_{{lang}}" data-role="page" class="page" data-dom-cache="true">
+  <div data-role="header" data-theme="c">
+    <a href="#" onclick="goBack();" data-icon="arrow-l" data-direction="reverse">Back</a>
+    <a href="/" data-icon="home" data-direction="reverse">Home</a>
+    <h1> {%trans 'Delete'%}:{{entry.title}} </h1>
+  </div><!--/header-->
+<div id="color-bar"></div>
+
+<div data-role="content">
+
+<h2>{{entry.title}}</h2>
+<div>{{entry.body}}</div>
+
+<form  method="post" >{%csrf_token%}
+	{% for field in form %}
+<div data-role="fieldcontain">
+	{{ field.label_tag }}
+	{{ field }}
+	{{ field.errors }}
+</div>
+{% endfor %}
+ 
+<fieldset class="ui-grid-a">
+	<div class="ui-block-b">
+		<a href="/blog/entry/{{entry.slug}}/">{%trans 'Cancel'%}</a>
+		<button type="submit" data-theme="a" data-mini="true">{%trans 'Save'%}</button>
+	</div>
+</fieldset>	
+</form>
+
+{%if user.is_active %}
+
+{%endif %}
+</div>
+</div><!-- /page home-->
+
+
+{%endblock body%}
