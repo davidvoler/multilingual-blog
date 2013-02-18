@@ -5,6 +5,7 @@
 function go_home(){
 	$.mobile.changePage('/');
 }
+
 </script>
 <div id="edit_entry_{{entry.pk}}" data-role="page" class="page" data-dom-cache="true">
 
@@ -17,20 +18,20 @@ function go_home(){
 
 <div data-role="content">
 		
-		<form data-ajax='false'  method="post" >{%csrf_token%}
-			{% for field in form %}
-        <div data-role="fieldcontain">
-			{{ field.label_tag }}
-			{{ field }}
-			{{ field.errors }}
-		</div>
-    	{% endfor %}
+<form data-ajax='false'  method="post" >{%csrf_token%}
+{% for field in form %}
+<div data-role="fieldcontain">
+	{{ field.label_tag }}
+	{{ field }}
+	{{ field.errors }}
+</div>
+{% endfor %}
 		 
-		<fieldset class="ui-grid-a">
-			<div class="ui-block-a"><button value='cancel' type="button" onclick="go_home();" data-theme="d" data-mini="true">Cancel</button></div>
-			<div class="ui-block-b"><button type="submit" data-theme="a" data-mini="true">Save</button></div>
-	    </fieldset>	
-		</form>
+<fieldset class="ui-grid-a">
+	<div class="ui-block-a"><button value='cancel' type="button" onclick="goBack();" data-theme="d" data-mini="true">Cancel</button></div>
+	<div class="ui-block-b"><button type="submit" data-theme="a" data-mini="true">Save</button></div>
+</fieldset>	
+</form>
 </div><!-- /content -->
 </div><!-- /page home-->
 

@@ -6,6 +6,7 @@ from taggit.managers import TaggableManager
 from django.conf.global_settings import LANGUAGES
 from djangoratings.fields import RatingField
 from uuslug import uuslug
+from django.db.models import Count
 
 class Blog(models.Model):
     title=models.CharField(max_length=300, null=True,blank=True)
@@ -91,4 +92,3 @@ class Entry(models.Model):
         if user==self.author:
             return True
         return False
-    

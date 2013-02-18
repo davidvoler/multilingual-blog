@@ -13,14 +13,21 @@ from django.db.models import Q
 
 from blog.forms import *
 from blog.models import Blog,Entry
-
+from taggit.models import Tag
 
 def index(request):
+    tag=request.GET.get('tag','')
     entries=Entry.objects.filter(deleted=False,published=True)
+    """
+    if tag:
+        entries=entries.filter(tags__name=tag)
+    """
     blogs=Blog.objects.filter(deleted=False)
+    tags=Tag.objects.all()
     return render_to_response('index.html',
                               {'entries':entries,
-                               'blogs':blogs},
+                               'blogs':blogs,
+                               'tags':tags},
                               context_instance =  RequestContext(request)) 
 
 

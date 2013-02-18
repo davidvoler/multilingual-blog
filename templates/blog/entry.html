@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%load  i18n comments %}
+{%load  i18n comments blogtags%}
 {%block body%}
 
 
@@ -62,7 +62,7 @@ tagit is using a non supported query
 {%else%}
 <h4>{%trans "Translations"%}</h4>
 {%for t in entry.get_translations%}
-<a href="/blog/entry/{{t.slug}}/">{{t.lang}}:{{t.title}}</a>	
+<a href="/blog/entry/{{t.slug}}/">{{t.lang|get_lang_name}}:{{t.title}}</a>	
 {%endfor%}
 </div>
 {%if user.is_active%}

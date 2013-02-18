@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{%load  i18n %}
+{%load  i18n blogtags %}
 {%block body%}
 <div id="trnas_entry-{{entry.pk}}_{{lang}}" data-role="page" class="page" data-dom-cache="true">
   <div data-role="header" data-theme="c">
     <a href="#" onclick="goBack();" data-icon="arrow-l" data-direction="reverse">Back</a>
     <a href="/" data-icon="home" data-direction="reverse">Home</a>
-    <h1> {%trans 'Delete'%}:{{entry.title}} </h1>
+    <h1> {%trans 'Translate'%}:{{entry.title}} </h1>
   </div><!--/header-->
 <div id="color-bar"></div>
 
 <div data-role="content">
-
-<h2>{{entry.title}}</h2>
-<div>{{entry.body}}</div>
+<h3> {%trans 'Translate'%}:'{{entry.title}}' to {{lang|get_lang_name}}</h3>
+<h4><strong>{%trans 'Original Title'%}</strong>: {{entry.title}}</h4>
+<div><strong>{%trans 'Original Text'%}</strong> :{{entry.body}}</div>
 
 <form  method="post" >{%csrf_token%}
 	{% for field in form %}
@@ -24,11 +24,9 @@
 {% endfor %}
  
 <fieldset class="ui-grid-a">
-	<div class="ui-block-b">
-		<a href="/blog/entry/{{entry.slug}}/">{%trans 'Cancel'%}</a>
-		<button type="submit" data-theme="a" data-mini="true">{%trans 'Save'%}</button>
-	</div>
-</fieldset>	
+	<div class="ui-block-a"><button value='cancel' type="button" onclick="goBack();" data-theme="d" data-mini="true">Cancel</button></div>
+	<div class="ui-block-b"><button type="submit" data-theme="a" data-mini="true">Save</button></div>
+</fieldset>		
 </form>
 
 {%if user.is_active %}

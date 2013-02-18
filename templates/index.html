@@ -12,7 +12,6 @@
 	<a href="/" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 	<a href="/" data-icon="search" data-iconpos="notext" data-rel="dialog" data-transition="fade">Search</a>
 </div>
-
 <div data-role="content">
 <div >
   {%if user.is_authenticated%}
@@ -31,8 +30,21 @@
     	data-ajax='false' rel="nofollow" href="/login/facebook/">Facebook</a>
   {% endif %}
 </div><!--/social-icons--> 
-	
+{%comment%}
+<div><h3>{%trans 'Tags'%}</h3>
+	{%for t in tags%}
+	<a href=/?tag={{t}}>{{t}}</a>
+	{%endfor%}
+</div>
+<div><h3>{%trans 'Languages'%}</h3>
+	{{langs}}
+	{%for t in langs%}
+	<a href=/?lang={{l}}>{{l}}</a>
+	{%endfor%}
+</div>
+{%endcomment%}	
 <h3>{%trans 'Latest Posts'%}</h3>
+
 <div>
 <ul data-role="listview" data-filter="true" data-filter-placeholder="Search" data-filter-theme="d"data-theme="d" data-divider-theme="d">	
 	

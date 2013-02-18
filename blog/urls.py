@@ -10,5 +10,5 @@ urlpatterns = patterns('blog.views',
     (r'^edit_entry/(?P<entry_id>\w+)/$', 'edit_entry'),
     (r'^delete_entry/(?P<entry_id>\w+)/$', 'delete_entry'),
     (r'^entry/(?P<slug>[\w\-]+)/$', 'entry'),
-    (r'^trnaslate_entry/(?P<entry_id>\w+)/(?P<lang>\w+)/$', 'trnaslate_entry'),
+    (r'^trnaslate_entry/(?P<entry_id>\w+)/(?P<lang>[\w\-]+)/$', 'trnaslate_entry'),
 )
