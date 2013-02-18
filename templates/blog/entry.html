@@ -28,6 +28,7 @@ tagit is using a non supported query
 </div>
 {%endcomment%}
 <div>{%trans 'rating'%}:{{entry.rating.get_percent}}</div>
+{%comment%}
 <div>
 <h4>{%trans "Comments"%}</h4>
 {% render_comment_list for entry %}
@@ -43,7 +44,7 @@ tagit is using a non supported query
 <input  type="hidden"  id="id_name" type="text" name="name" maxlength="50" value="{{user.first_name}} {{user.last_name}}" />
 <input  type="hidden"  type="text" name="email" id="id_email" value="{{user.email}}" />
 <input  type="hidden"  type="text" name="url" id="id_url" />
-<input type="text" name="honeypot" id="id_honeypot" />
+<input type="hidden"  type="text" name="honeypot" id="id_honeypot" />
 <input type="hidden" name="content_type" value="blog.entry" id="id_content_type" />
 <input type="hidden" name="object_pk" value="169" id="id_object_pk" />
 <input type="hidden" name="timestamp" value="1361004119" id="id_timestamp" />
@@ -53,7 +54,9 @@ tagit is using a non supported query
 </form>
 </div>
 {%endif%}
+{%endcomment%}
 <div>
+	
 {%if entry.translated_from %}
 <a href="/blog/entry/{{entry.translated_from.slug}}/">{%trans 'Translated form:'%}:  {{entry.translated_from.lang}}:{{entry.translated_from.title}}</a>
 {%else%}

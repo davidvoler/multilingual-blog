@@ -19,7 +19,7 @@ class Blog(models.Model):
     weight  = models.IntegerField(default=0)
     tags = TaggableManager(blank=True)
     class Meta:
-        ordering = ['weight','created_date']
+        ordering = ['weight','-created_date']
         #db_table = 'card_collection'
         #app_label = 'blog'
     def save(self, *args, **kwargs):
@@ -55,7 +55,7 @@ class Entry(models.Model):
     tags = TaggableManager(blank=True)
     rating = RatingField(range=5) 
     class Meta:
-        ordering = ['created_date']
+        ordering = ['-created_date']
     def save(self, *args, **kwargs):
         self.slug = uuslug(self.title, instance=self)
         super(Entry, self).save(*args, **kwargs)

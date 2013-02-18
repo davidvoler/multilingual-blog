@@ -132,7 +132,6 @@ def delete_entry(request,entry_id):
                                'entry':entry},
                               context_instance =  RequestContext(request)) 
 
-@login_required
 def entry(request,slug):
     entry=get_object_or_404(Entry,slug=slug)
     return render_to_response('blog/entry.html',

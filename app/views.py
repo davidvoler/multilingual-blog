@@ -68,7 +68,7 @@ def form(request):
         username=email_s
     else:
         username='user_%d'%get_next_user_num()
-    #username="someusername"    
+        #username="someusername"    
     
     request.session['saved_username'] = username
     backend = request.session[name]['backend']
